@@ -1,6 +1,22 @@
 <?
 // include("data.php"); // относительный путь
-include($_SERVER['DOCUMENT_ROOT']."/data.php"); // абсолютный путь
+include($_SERVER['DOCUMENT_ROOT']."/db_connect.php"); // абсолютный путь
+include($_SERVER['DOCUMENT_ROOT']."/function.php"); // абсолютный путь
+
+
+$sqlResult = mysqli_query($sqlConnect,"SELECT * FROM `product`");
+while($row = mysqli_fetch_assoc($sqlResult)) {
+	// p($row);
+	$arProduct[$row['id']] = $row;
+}
+// p($arProduct);
+
+$sqlResult = mysqli_query($sqlConnect,"SELECT * FROM `categories`");
+ 
+while($row = mysqli_fetch_assoc($sqlResult)) {
+	// p($row);
+	$arCategories[$row['id']] = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +35,7 @@ include($_SERVER['DOCUMENT_ROOT']."/data.php"); // абсолютный путь
 	<div class="container">
 
 		<div id="catalog_list" class="bimg">
-			<? foreach($arCatalog as $item): if(!$item['active']) continue; ?>
+			<? foreach($arProduct as $item): if(!$item['active']) continue; ?>
 			<div class="item">	
 				<img src="static/images/upload/image<?=$item['id']?>.png" alt="">
 				<div class="inner">
