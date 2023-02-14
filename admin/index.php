@@ -97,6 +97,13 @@ if (isset($_GET['code'])) {
 			if(isset($_POST['edit'])) {
 				p($_POST);
 				// TODO: выполнить UPDATE
+                mysqli_query($sqlConnect,"UPDATE `product` SET 
+                     '".$_POST['product_name']."', 
+                     '".$_POST['price']."', 
+                     '".$_POST['descr']."', 
+                     '".$_POST['category']."', 
+                     '".$_POST['active']."'
+                WHERE `id`=".$_GET['id']);
 			}
 			?>	
 		<? } break;
