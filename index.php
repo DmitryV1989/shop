@@ -1,7 +1,9 @@
 <?
-// include("data.php"); // относительный путь
-include($_SERVER['DOCUMENT_ROOT']."/db_connect.php"); // абсолютный путь
-include($_SERVER['DOCUMENT_ROOT']."/function.php"); // абсолютный путь
+include($_SERVER['DOCUMENT_ROOT']."/core/index.php"); // ядро (движок проекта)
+
+p(SELECT("SELECT * FROM `categories` WHERE `id`=2"));
+p(SELECT("SELECT * FROM `categories` WHERE `id`=2","row")); 
+die;
 
 
 $sqlResult = mysqli_query($sqlConnect,"SELECT * FROM `product`");
@@ -28,9 +30,16 @@ while($row = mysqli_fetch_assoc($sqlResult)) {
 </head>
 <body>
 	<header>
-		<a href="">Главная</a>
-		<a href="">Каталог</a>
-		<a href="">Контакты</a>
+		<nav>
+			<a href="">Главная</a>
+			<a href="">Каталог</a>
+			<a href="">Контакты</a>
+		</nav>
+		<? if(isset($_COOKIE['user'])): ?>
+			<div>Вы вошли как:<strong style="color:<?=$CORE['CURRENT']['USER']['color']?>"> <?=$CORE['CURRENT']['USER']['name']?></strong>, <a href="/auth?exit">выйти</a></div>
+		<? else: ?>
+			<a href="/auth">Авторизация/Регистрация</a>
+		<? endif; ?>	
 	</header>
 	<div class="container">
 
